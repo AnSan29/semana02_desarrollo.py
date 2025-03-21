@@ -1,12 +1,10 @@
-#declaracion de variables
-lista_calificaciones = []
-suma_notas = 0
+# ----------------->>> DEFINICION DE FUNCIONES <<<-----------------
 
-#declaracion de funciones 
-# - solicitud numero entero inicial.
+# 1- Función para solicitar numero entero.
 def cant_calificaciones_funcion():
     while True:
         try:
+            print(' ')
             print('Ingrese cantidad de calificaciones a ingresar:')
             cantidad_calificaciones = int(input(' => '))
             if cantidad_calificaciones < 0:
@@ -14,20 +12,20 @@ def cant_calificaciones_funcion():
                 print('Error! -> No se permiten numeros negativos.')
                 print(' ')
             else:
-                break
+                return cantidad_calificaciones
         except ValueError:
             print(' ')
             print('Error! -> valor inválido: "No se permite nada diferente a numeros positivos".')
             print(' ')
-    return cantidad_calificaciones
     
-# - solicitar calificaciones
+# 2- Función para solicitar calificaciones.
 def calificaciones_add_funcion():
     for i in range(cantidad_calificaciones):
-    
         while True:
             try:
-                calificacion = float(input('Ingrese el valor de una calificación => '))
+                print(' ')
+                print(f'Ingrese la {i+1} calificación de {cantidad_calificaciones}:')
+                calificacion = float(input('=> '))
             
                 if type(calificacion).__name__ == 'float':
                     if calificacion < 0 or calificacion >100:
@@ -40,14 +38,15 @@ def calificaciones_add_funcion():
                 print(' ')
                 print('Error! -> valor inválido: "No se permite nada diferente a numeros positivos".')
                 print(' ')
-    
         lista_calificaciones.append(calificacion) 
 
-# - solicitar valor a comparar
+# 3- Función para solicitar calificacion a comparar.
 def valor_comparar_funcion():
     while True:
         try:
-            valor_comparar = float(input('Ingrese el valor a comparar => '))
+            print(' ')
+            print('Ingresar valor a buscar en lista:')
+            valor_comparar = float(input('=> '))
             
             if type(valor_comparar).__name__ == 'float':
                 if valor_comparar < 0:
@@ -60,34 +59,38 @@ def valor_comparar_funcion():
             print(' ')
             print('Error! -> valor inválido: "No se permite nada diferente a numeros positivos".')
             print(' ')
-    
 
-#paso1
-# pedimos cuantas notas ingresaremos
 
-cantidad_calificaciones = cant_calificaciones_funcion()
-print(f'se registrarán: ({cantidad_calificaciones}) calificaciones.')
-
-#paso 2
-calificacion = calificaciones_add_funcion()     
-
-#hallando promedio
-for nota in lista_calificaciones:
-    suma_notas += nota
-    promedio_estudiante = suma_notas/cantidad_calificaciones
+# Declaración de variables generales.
+lista_calificaciones = []
+suma_notas = 0
 minimo_aprobar = 60.0
 estado_aprobacion = ''
 
+# ------------------------->>> ENTRADAS <<<-------------------------
+# Obtenemos cantidad de notas a ingresar.
+cantidad_calificaciones = cant_calificaciones_funcion()
+print(f'se registrarán: ({cantidad_calificaciones}) calificaciones.')
+
+# Obtenemos calificaciones.
+calificacion = calificaciones_add_funcion()     
+
+# Obtenemos el valor a comparar.
+valor_comparar = valor_comparar_funcion()
+
+# ------------------------->>> PROCESO <<<-------------------------
+# Hallamos el promedio.
+for nota in lista_calificaciones:
+    suma_notas += nota
+    promedio_estudiante = suma_notas/cantidad_calificaciones
+
+# Hallamos estado de aprobación.
 if promedio_estudiante > minimo_aprobar:
     estado_aprobacion = 'Aprobado'
 else:
     estado_aprobacion = 'Reprobado'
 
-#paso 4
-valor_comparar = valor_comparar_funcion()
-print(valor_comparar)
-
-# hallar cuantas calificaciones son mayores al valor ingresado
+# Hallamos cantidad de calificaciones mayores.
 es_mayor = 0
 i = 0
 while i < cantidad_calificaciones:
@@ -96,19 +99,24 @@ while i < cantidad_calificaciones:
         es_mayor+=1
     i+=1
 
+# Hallamos cuantas veces aparece el valor en nuestra lista.
 aparicion = 0
-# verificacion y conteo
 for nota2 in lista_calificaciones:
     if nota2 == valor_comparar:
         aparicion +=1
         continue
 
 
+# ------------------------->>> SALIDAS <<<-------------------------
+print(' ')
+print('-'*20)
+print(f'Lista de calificaciones: {lista_calificaciones}')
 print('--------------------')
-print(lista_calificaciones)
-print(f'suma de calificaciones:({suma_notas})')
-print(f'promedio estudiante: ({promedio_estudiante:.2f})')
-print(f'estado de aprobación:({estado_aprobacion})')
-print(f'se encontraron: {es_mayor} notas mayores a: ({valor_comparar})')
+print(f'suma de calificaciones:          {suma_notas:.2f}')
+print(f'promedio estudiante:             {promedio_estudiante:.2f}')
+print(f'estado de aprobación:            {estado_aprobacion}')
+print('--------------------')
+print(f'se encontraron {es_mayor} notas mayores a: {valor_comparar}')
 print(f"La calificación {valor_comparar} aparece {aparicion} veces.")
 print('--------------------')
+print(' ')
