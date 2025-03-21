@@ -55,11 +55,12 @@ def valor_comparar_funcion():
                     print('Error! -> número negativo: "La calificación no puede ser negativa".')
                     print(' ')
                 else:
-                    break
+                    return valor_comparar
         except ValueError:
             print(' ')
             print('Error! -> valor inválido: "No se permite nada diferente a numeros positivos".')
             print(' ')
+    
 
 #paso1
 # pedimos cuantas notas ingresaremos
@@ -84,6 +85,7 @@ else:
 
 #paso 4
 valor_comparar = valor_comparar_funcion()
+print(valor_comparar)
 
 # hallar cuantas calificaciones son mayores al valor ingresado
 es_mayor = 0
